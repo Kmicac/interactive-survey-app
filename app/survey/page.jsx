@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { createSurvey } from '../api/apiRequest';
 import { english, french, german, spanish } from '@/app/images/images';
@@ -10,6 +10,7 @@ import Link from 'next/link';
 const Survey = () => {
 
   const [step, setStep] = useState(1);
+  // const [error, setError] = useState('')
   const { register, handleSubmit, setValue } = useForm();
   const stepsTotal = 3;
 
@@ -21,7 +22,16 @@ const Survey = () => {
     }
   };
 
-  const progressValue = ( step / stepsTotal) * 100;
+  const onSubmit = handleSubmit(async (data) => {
+    const response = await createSurvey(data);
+    console.log(response)
+    localStorage.setItem('UserId', response.data.id)
+    const id = localStorage.getItem('UserId');
+    console.log('ID obtenido:', id);
+
+  })
+
+  const progressValue = (step / stepsTotal) * 100;
 
   return (
 
@@ -30,10 +40,7 @@ const Survey = () => {
         <div className="progress"></div>
       </progress>
 
-      <form onSubmit={handleSubmit(async (data) => {
-        const response = await createSurvey(data);
-        console.log(data)
-      })}>
+      <form onSubmit={onSubmit}>
         {step === 1 && (
           <div>
             <h2 className='center'>Bienvenid@, completa con tus datos!</h2>
@@ -43,8 +50,9 @@ const Survey = () => {
                 <input
                   type="text"
                   name="full_name"
-                  {...register('full_name')}
+                  {...register('full_name', { require: true })}
                 />
+                {/* {errors && <span>Nombre es requerido</span>} */}
               </div>
             </div>
             <br />
@@ -55,8 +63,9 @@ const Survey = () => {
                 <input
                   type="tel"
                   name="phone_number"
-                  {...register('phone_number')}
+                  {...register('phone_number', { require: true, type: 'number' })}
                 />
+                {/* {errors && <span>Numero es requerido</span>} */}
               </div>
             </div>
             <br />
@@ -149,32 +158,36 @@ const Survey = () => {
             </div>
             <div className='center'>
               <div className='conta'>
-                <div className='div-found' name="how_found" onClick={() => setValue('how_found', 'friends')}>Amigos</div>
-                <div className='div-found' name="how_found" onClick={() => setValue('how_found', 'online_search')} >Búsqueda en línea</div>
-                <div className='div-found' name="how_found" onClick={() => setValue('how_found', 'advertisement')}>Publicidad</div>
-
+                <div className='div-found' name="Amigos" onClick={() => setValue('how_found', 'friends')}>Amigos</div>
+                <div className='div-found' name="Busqueda en linea" onClick={() => setValue('how_found', 'online_search')} >Búsqueda en línea</div>
+                <div className='div-found' name="Publicidad" onClick={() => setValue('how_found', 'advertisement')}>Publicidad</div>
               </div>
+
             </div>
             <br />
-            <div className='center'>
-              <label>
-                ¿Desea recibir nuestro boletín informativo?
-                <input
-                  type="checkbox"
-                  name="newsletter_subscription"
-                  {...register('true')}
-                />
-              </label>
+            <div className='body'>
+              <div className='center'>
+                <label>
+                  ¿Desea recibir nuestro boletín informativo?
+                  <input
+                    type="checkbox"
+                    name="newsletter_subscription"
+                    onClick={() => setValue("newsletter_subscription", true)}
+                  />
+                </label>
+              </div>
+              <div className='center'>
+                <button className='button' type='submit'>
+                  Enviar
+                </button> 
+                     
+                <Link href='/showInfo'>
+                  <button className='button'>
+                    INFO
+                  </button>
+                </Link>
+              </div>
             </div>
-            <div className='center'>
-              <button className='button' type='submit'>
-               {/* <Link href='/info'> */}
-                Enviar
-               {/* </Link> */}
-                </button>
-
-            </div>
-
           </div>
         )}
       </form>
