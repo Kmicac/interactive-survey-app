@@ -30,6 +30,9 @@ export const getInfo = async () => {
 export const updateSurvey = async (user) => {
   const id = localStorage.getItem('UserId');
   try {
+    if (!id) {
+      throw new Error('El ID del usuario no está disponible en el almacenamiento local.');
+    }
     const response = await axios.patch(`http://localhost:3001/survey/${id}/update`, user);
     const userAct = response.data;
     console.log(userAct);

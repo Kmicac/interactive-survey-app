@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import { getInfo, updateSurvey } from "../api/apiRequest";
 import Link from "next/link";
 import '../updateForm/update.css';
+// import { useForm } from "react-hook-form";
+
+
 
 const UpdateInfo = () => {
 
@@ -15,33 +18,36 @@ const UpdateInfo = () => {
     how_found: "",
     newsletter_subscription: "",
   });
-  
+
+  // const { register, handleSubmit, setValue } = useForm();
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-          const user = await getInfo();
-          setUserInfo(user);
-          console.log(user);
+        const user = await getInfo();
+        setUserInfo(user);
+        console.log(user);
       } catch (error) {
-          console.error(error);
+        console.error(error);
       }
-  };
-  fetchUserInfo()
-  },[])
+    };
+    fetchUserInfo()
+  }, [])
 
   const handleInputChange = (e) => {
-    const { name, value, checked } = e.target;
+    const { name, value, type, checked  } = e.target;
+    const inputValue = type === "checkbox" ? checked : value;
 
     setUserInfo({
       ...userInfo,
-      [name]: value || checked,
+      [name]: inputValue,
     });
   };
-    
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-      const updatedUser = await updateSurvey(userInfo.id, userInfo); // Pasa el ID y el formulario
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedUser = await updateSurvey(userInfo); // Pasa el ID y el formulario
       setUserInfo(updatedUser); // Actualiza el estado con la respuesta
       console.log(updatedUser);
     } catch (error) {
@@ -107,10 +113,15 @@ const UpdateInfo = () => {
           onChange={handleInputChange}
         />
         <br />
-        <br />
-        <Link href='/showInfo'>
+        <div>
           <button className='button2' type="submit">Guardar Cambios</button>
+        </div>
+          <br />
+          <div>
+        <Link href='/showInfo'>
+          <button className='button2'>Ver Info</button>
         </Link>
+          </div>
       </form>
     </div>
 

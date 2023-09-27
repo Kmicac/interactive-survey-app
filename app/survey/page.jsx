@@ -34,7 +34,6 @@ const Survey = () => {
       'Tu Informacion ha sido enviada!',
       'success'
     )
-
   })
 
   const progressValue = (step / stepsTotal) * 100;
