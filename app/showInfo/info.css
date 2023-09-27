@@ -1,14 +1,17 @@
-.body {
-  padding: 200px;
+.box {
+  padding: 100px;
   max-width: 800px;
+  max-height: max-content;
   margin: auto;
 }
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(205, 205, 214, 0.793);
     max-width: 300px;
     margin: auto;
     text-align: center;
-    font-family: arial;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: auto;
+    height: auto;
   }
   
   .price {
@@ -21,7 +24,7 @@
     outline: 0;
     padding: 12px;
     color: white;
-    background-color: #000;
+    background-color: #303c2db5;
     text-align: center;
     cursor: pointer;
     width: 100%;
@@ -30,4 +33,23 @@
   
   .card button:hover {
     opacity: 0.7;
+  }
+
+  .card button:active {
+    transform: translateY(4px);
+  }
+
+  .box button {
+    align-items: center;
+    padding: 12px;
+    color: white;
+    background-color: #303c2db5;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+  }
+
+  .box button:active {
+    transform: translateY(4px);
   }

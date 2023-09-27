@@ -6,6 +6,7 @@ import { createSurvey } from '../api/apiRequest';
 import { english, french, german, spanish } from '@/app/images/images';
 import './language/language.css';
 import Link from 'next/link';
+import Swal from 'sweetalert2'
 
 const Survey = () => {
 
@@ -28,6 +29,11 @@ const Survey = () => {
     localStorage.setItem('UserId', response.data.id)
     const id = localStorage.getItem('UserId');
     console.log('ID obtenido:', id);
+    Swal.fire(
+      'Muchas gracias!',
+      'Tu Informacion ha sido enviada!',
+      'success'
+    )
 
   })
 
@@ -169,12 +175,12 @@ const Survey = () => {
               <div className='center'>
                 <label>
                   ¿Desea recibir nuestro boletín informativo?
+                  </label>
                   <input
                     type="checkbox"
                     name="newsletter_subscription"
                     onClick={() => setValue("newsletter_subscription", true)}
                   />
-                </label>
               </div>
               <div className='center'>
                 <button className='button' type='submit'>

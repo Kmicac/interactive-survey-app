@@ -5,6 +5,7 @@
   align-items: center;
   padding: 10rem;
   min-height: 100vh;
+  background-color: rgb(30, 35, 40);
 }
 
 .description {
@@ -49,7 +50,7 @@
   border-radius: 10px;
   box-shadow: 1px 2px 4px rgba(0, 8, 8, 0.357);
   transition: transform 0.4s ease-in-out;
-  background-color: #9ba2a24a;
+  background-color: #a8b1b14a;
 }
 
 .grid:hover {

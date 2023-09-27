@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react"
 import { getInfo } from "../api/apiRequest";
 import { english, spanish, french, german } from "../images/images";
 import '../showInfo/info.css';
+import Link from "next/link";
 
 const InfoUser = () => {
 
@@ -14,6 +15,7 @@ const InfoUser = () => {
             try {
                 const user = await getInfo();
                 setUser(user);
+                console.log(user);
             } catch (error) {
                 console.error(error);
             }
@@ -25,9 +27,13 @@ const InfoUser = () => {
         return <p>Cargando...</p>;
     }
 
+    const hendleDeleteInfo = () => {
+        localStorage.clear('UserId')
+    };
+
     return (
 
-        <div className="body">
+        <div className="box">
             <div>
                 <div className="card">
                     <h1>{user.full_name}</h1>
@@ -50,7 +56,7 @@ const InfoUser = () => {
                     <br />
                     <p className="price">Estás subscripto: {user.newsletter_subscription ? 'Si' : 'No'}</p>
                     <br />
-                    <p><b>Nos encontraste atravez de:
+                    <p><b>Nos encontraste a través de:
                         <br />
                         {user.how_found === 'friends'
                             ? 'Amigos'
@@ -60,10 +66,22 @@ const InfoUser = () => {
                                     ? 'Publicidad'
                                     : ""}</b></p>
                     <br />
-                    <p><button>Actualizar info</button></p>
+                    <p><b>Fecha de inicio: {user.start_date}</b></p>
+                    <br />
+                    <Link href='/updateForm'>
+                        <button>
+                            Actualizar info
+                        </button>
+                    </Link>
                 </div>
+                <br />
+                <br />
             </div>
+            <Link href='/'>
+                <button className="boton2" onClick={hendleDeleteInfo}>Inicio</button>
+            </Link>
         </div>
+        
     )
 }
 

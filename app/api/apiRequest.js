@@ -19,7 +19,6 @@ export const getInfo = async () => {
 
     const res = await axios.get(`http://localhost:3001/survey/${id}`);
     const user = res.data;
-    console.log(user);
     return user;
   } catch (error) {
     console.error('Error al obtener la información del usuario:', error.message);
@@ -28,13 +27,14 @@ export const getInfo = async () => {
 };
 
 
-export const updateSurvey = async (dataToUpdate) => {
- const id = localStorage.getItem('UserId')
+export const updateSurvey = async (user) => {
+  const id = localStorage.getItem('UserId');
   try {
-    const response = await axios.patch(`http://localhost:3001/survey/${id}/update/`, dataToUpdate);
-    return response.data;
+    const response = await axios.patch(`http://localhost:3001/survey/${id}/update`, user);
+    const userAct = response.data;
+    console.log(userAct);
+    return userAct;
   } catch (error) {
     console.error('Error al actualizar la encuesta:', error);
-    throw error;
   }
 };

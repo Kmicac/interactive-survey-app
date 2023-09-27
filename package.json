@@ -15,6 +15,7 @@
     "next": "13.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.46.2"
+    "react-hook-form": "^7.46.2",
+    "sweetalert2": "^11.7.31"
   }
 }
