@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getInfo, updateSurvey } from "../api/apiRequest";
 import Link from "next/link";
 import '../updateForm/update.css';
+import Swal from 'sweetalert2'
 // import { useForm } from "react-hook-form";
 
 
@@ -35,7 +36,7 @@ const UpdateInfo = () => {
   }, [])
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked  } = e.target;
+    const { name, value, type, checked } = e.target;
     const inputValue = type === "checkbox" ? checked : value;
 
     setUserInfo({
@@ -47,9 +48,14 @@ const UpdateInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedUser = await updateSurvey(userInfo); // Pasa el ID y el formulario
-      setUserInfo(updatedUser); // Actualiza el estado con la respuesta
+      const updatedUser = await updateSurvey(userInfo);
+      setUserInfo(updatedUser);
       console.log(updatedUser);
+      Swal.fire(
+        'Informacion Actualizada',
+        'Exitosamente',
+        'success'
+      )
     } catch (error) {
       console.error(error);
     }
@@ -116,12 +122,12 @@ const UpdateInfo = () => {
         <div>
           <button className='button2' type="submit">Guardar Cambios</button>
         </div>
-          <br />
-          <div>
-        <Link href='/showInfo'>
-          <button className='button2'>Ver Info</button>
-        </Link>
-          </div>
+        <br />
+        <div>
+          <Link href='/showInfo'>
+            <button className='button2'>Ver Info</button>
+          </Link>
+        </div>
       </form>
     </div>
 

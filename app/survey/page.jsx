@@ -11,7 +11,6 @@ import Swal from 'sweetalert2'
 const Survey = () => {
 
   const [step, setStep] = useState(1);
-  // const [error, setError] = useState('')
   const { register, handleSubmit, setValue } = useForm();
   const stepsTotal = 3;
 
@@ -57,7 +56,6 @@ const Survey = () => {
                   name="full_name"
                   {...register('full_name', { require: true })}
                 />
-                {/* {errors && <span>Nombre es requerido</span>} */}
               </div>
             </div>
             <br />
@@ -70,7 +68,6 @@ const Survey = () => {
                   name="phone_number"
                   {...register('phone_number', { require: true, type: 'number' })}
                 />
-                {/* {errors && <span>Numero es requerido</span>} */}
               </div>
             </div>
             <br />
@@ -86,7 +83,6 @@ const Survey = () => {
             </div>
             <br />
             <div className='center'>
-
               <button className='button' onClick={handleNext}>Siguiente</button>
             </div>
           </div>
@@ -174,18 +170,18 @@ const Survey = () => {
               <div className='center'>
                 <label>
                   ¿Desea recibir nuestro boletín informativo?
-                  </label>
-                  <input
-                    type="checkbox"
-                    name="newsletter_subscription"
-                    onClick={() => setValue("newsletter_subscription", true)}
-                  />
+                </label>
+                <input
+                  type="checkbox"
+                  name="newsletter_subscription"
+                  onClick={() => setValue("newsletter_subscription", true)}
+                />
               </div>
               <div className='center'>
                 <button className='button' type='submit'>
                   Enviar
-                </button> 
-                     
+                </button>
+
                 <Link href='/showInfo'>
                   <button className='button'>
                     INFO
