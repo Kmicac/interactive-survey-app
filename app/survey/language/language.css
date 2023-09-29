@@ -75,17 +75,14 @@
 
 .progress-bar {
   width: 100%;
-  background-color: #a7a7a7;
-  height: 10px;
+  height: 8px;
   margin-bottom: 20px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .progress-bar .progress {
-  color:#303c2db5;
   width: 0;
   height: 100%;
-  background-color: #303c2db5;
   transition: width 1.6s ease-in-out;
 }
 

@@ -11,7 +11,7 @@ import Swal from 'sweetalert2'
 const Survey = () => {
 
   const [step, setStep] = useState(1);
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const stepsTotal = 3;
 
   const handleNext = () => {
@@ -23,16 +23,25 @@ const Survey = () => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    const response = await createSurvey(data);
-    console.log(response)
-    localStorage.setItem('UserId', response.data.id)
-    const id = localStorage.getItem('UserId');
-    console.log('ID obtenido:', id);
-    Swal.fire(
-      'Muchas gracias!',
-      'Tu Informacion ha sido enviada!',
-      'success'
-    )
+    try {
+      const response = await createSurvey(data);
+      console.log(response)
+      localStorage.setItem('UserId', response.data.id)
+      const id = localStorage.getItem('UserId');
+      console.log('ID obtenido:', id);
+      Swal.fire(
+        'Muchas gracias!',
+        'Tu Informacion ha sido enviada!',
+        'success'
+      )
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error.message);
+      Swal.fire(
+        '¡Error!',
+        'Hubo un problema al enviar el formulario. Por favor, rellena todos los campos.',
+        'error'
+      );
+    }
   })
 
   const progressValue = (step / stepsTotal) * 100;
@@ -181,12 +190,12 @@ const Survey = () => {
                 <button className='button' type='submit'>
                   Enviar
                 </button>
-
-                <Link href='/showInfo'>
-                  <button className='button'>
+                {Object.keys(errors).length === 0 && (<Link href= '/showInfo'>
+                  <button className='button' type='button'>
                     INFO
                   </button>
                 </Link>
+                )}
               </div>
             </div>
           </div>
